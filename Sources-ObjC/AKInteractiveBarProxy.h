@@ -18,4 +18,5 @@
 @interface AKInteractiveBarProxy : NSProxy
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView delegate:(id<AKInteractiveBarProxyDelegate>)delegate;
 @property (nonatomic) CGFloat interactionTranslation;
+@property (nonatomic, assign) CGFloat contentOffsetTopLimitForBarScroll;
 @end

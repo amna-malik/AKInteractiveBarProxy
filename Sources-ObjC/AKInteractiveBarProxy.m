@@ -31,6 +31,8 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
 @property (nonatomic) InteractiveBarState interactiveBarStateAtBeginning;
 @property (nonatomic) CGFloat lastInteractingProgress;
 @property (nonatomic) CGPoint contentOffsetAtBeginning;
+@property (nonatomic, assign) CGFloat contentOffsetTopLimitForBarScroll;
+
 @end
 
 @implementation AKInteractiveBarProxyImpl
@@ -114,16 +116,20 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
             // Drag down and hold, then stop
             // Kill interactive animation with non-interactive one, depending on its current direction
             if (self.interactiveBarState == InteractiveBarStateInteracting) {
-                if (self.interactiveBarStateAtBeginning == InteractiveBarStateVisible) {
-                    [self delegateNonInteractiveActionWithBarHidden:YES];
-                } else if (self.interactiveBarStateAtBeginning == InteractiveBarStateHidden) {
-                    [self delegateNonInteractiveActionWithBarHidden:NO];
-                }
+                 [self delegateNonInteractiveActionWithBarHidden:NO];
             }
         } else {
             // Drag up and hold (or just hold), then stop
             // - Non-interactively hide unless we're at the bottom of content
-            if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.bounds.size.height - 1.0)) {
+          
+            CGFloat contentInsetLimit = (scrollView.contentInset.top - self.proxy.contentOffsetTopLimitForBarScroll)*-1;
+            
+            if(scrollView.contentOffset.y  < contentInsetLimit)
+            {
+                [self delegateNonInteractiveActionWithBarHidden:NO];
+                
+            }
+            else if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.bounds.size.height - 1.0)) {
                 // do nothing
             } else {
                 [self delegateNonInteractiveActionWithBarHidden:YES];
@@ -225,6 +231,15 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
 - (void)setInteractionTranslation:(CGFloat)interactionTranslation
 {
     self.impl.interactionTranslation = interactionTranslation;
+}
+
+- (void)setContentOffsetTopLimitForBarScroll:(CGFloat)contentOffsetTopLimitForBarScroll
+{
+    self.impl.contentOffsetTopLimitForBarScroll = contentOffsetTopLimitForBarScroll;
+}
+- (CGFloat)contentOffsetTopLimitForBarScroll
+{
+    return self.impl.contentOffsetTopLimitForBarScroll;
 }
 
 @end
