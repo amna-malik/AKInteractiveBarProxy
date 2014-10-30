@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "AKInteractiveBarProxy"
-  s.version               = "1.0.1"
+  s.version               = "1.0.0"
   s.summary               = "A proxy object which helps you to make Safari-like interactive animation bars on UIScrollView."
   s.description           = <<-DESC
                   AKInteraeBarProxy library provides a proxy object which helps you to make Safari-like interactive animation bars on UIScrollView. The proxy works as a delegate object for UIScrollView and its subclasses to interact with user inputs. Once user scrolls around on the scroll view, AKInteractiveBarProxy analyse scroll gestures and parse it to its delegate as an interactive animation.
