@@ -142,6 +142,15 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
     }
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    if ([self.proxy.delegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
+        [self.proxy.delegate scrollViewShouldScrollToTop:scrollView];
+    }
+    
+    return YES;
+}
+
 #pragma mark Private
 
 - (void)delegateInteractiveActionWithProgress:(CGFloat)progress
