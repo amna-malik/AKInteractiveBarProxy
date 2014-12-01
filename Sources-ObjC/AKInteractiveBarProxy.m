@@ -204,6 +204,11 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
     return self;
 }
 
+- (void)dealloc
+{
+    _delegate = nil;
+}
+
 #pragma mark NSProxy
 
 - (void)forwardInvocation:(NSInvocation *)invocation
