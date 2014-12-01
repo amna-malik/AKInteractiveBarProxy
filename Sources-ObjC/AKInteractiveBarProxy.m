@@ -17,7 +17,6 @@ typedef NS_ENUM(NSInteger, InteractiveBarState) {
 };
 
 @interface AKInteractiveBarProxy () <UIScrollViewDelegate>
-@property (nonatomic, weak) id<AKInteractiveBarProxyDelegate> delegate;
 @property (nonatomic) AKInteractiveBarProxyImpl *impl;
 @property (nonatomic) UIScrollView *scrollView;
 @end
